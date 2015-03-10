@@ -16,45 +16,52 @@ void setup() {
 
 void loop() {
   int check = DHT.read11(DHT11_PIN);
+  int statusSensor;
   
-  switch (check)
+  statusSensor = CheckSensorStatus(check);
+  
+  lcd.setCursor(13, 0);  // Ispis temperature
+  lcd.print(DHT.temperature, 1);
+  lcd.print(" C");
+  lcd.setCursor(13, 1);  // Ispis vlažnosti
+  lcd.print(DHT.humidity, 1);
+  lcd.print(" %");
+  lcd.setCursor(15, 3);  // Ispis error koda na lcd
+  lcd.print(statusSensor);
+
+  delay(1000);
+}
+
+int CheckSensorStatus (int check) {
+ switch (check)
   {
-    case DHTLIB_OK:
+    case DHTLIB_OK:  // Sve je u redu s komunikacijom
         lcd.setCursor(0, 3);
-	lcd.print("OK"); 
-	break;
-    case DHTLIB_ERROR_CHECKSUM:
+	lcd.print("OK");
+        return 400;
+    case DHTLIB_ERROR_CHECKSUM:  // Primljeni su krivi podaci
         lcd.setCursor(0, 3);
 	lcd.print("Checksum error"); 
-	break;
-    case DHTLIB_ERROR_TIMEOUT:
+	return 401;
+    case DHTLIB_ERROR_TIMEOUT: // Komunikacija nije uspijela s senzorom
         lcd.setCursor(0, 3);
 	lcd.print("Time out error"); 
-	break;
-    case DHTLIB_ERROR_CONNECT:
+	return 402;
+    case DHTLIB_ERROR_CONNECT:  // Jedan od pin-ova (vrlo vjerovatno data pin) je odspojen
         lcd.setCursor(0, 3);
         lcd.print("Connect error");
-        break;
-    case DHTLIB_ERROR_ACK_L:
+        return 403;
+    case DHTLIB_ERROR_ACK_L:  // Data pin spojen na GND ili niski napon
         lcd.setCursor(0, 3);
         lcd.print("Ack Low error");
-        break;
-    case DHTLIB_ERROR_ACK_H:
+        return 404;
+    case DHTLIB_ERROR_ACK_H:  // Data pin spojen na visoki napon (+3.3V ili vise)
         lcd.setCursor(0, 3);
         lcd.print("Ack High error");
-        break;
+        return 405;
     default:
         lcd.setCursor(0, 3);
         lcd.print("Unknown error"); 
-	break;
-  }
-  
-  lcd.setCursor(13, 0);
-  lcd.print(DHT.temperature, 1);
-  lcd.print(" C");
-  lcd.setCursor(13, 1);
-  lcd.print(DHT.humidity, 1);
-  lcd.print(" %");
-  
-  delay(1000);
+	return 410;
+  } 
 }

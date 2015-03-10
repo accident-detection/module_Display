@@ -1,7 +1,12 @@
 # module_Display
-Implementation of display functions and using senzors to display info on the display.
-The explanations inside the code are made in Croatian, because the project is made for Alegbra, Croatian uni.
+Implementation of display functions and using sensors to display info on the display.
+The explanations inside the code are made in Croatian, because the project is made for Alegbra, Croatian university.
 
-TODO:
-
-Put error codes into read me and closely explain stuff about the used display functions and DHT senzor functions.
+Error codes:
+400 - OK
+401 - Collected data is wrong
+402 - Unable to make communication with the sensors (time-out error)
+403 - Data pin isn't connected correctly
+404 - Data pin connected to GND or low very low voltage
+405 - Data pin connected to high voltage (+3.3V or greater)
+410 - Unknown error
