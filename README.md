@@ -2,6 +2,9 @@
 Implementation of display functions and using sensors to display info on the display.
 The explanations inside the code are made in Croatian, because the project is made for Alegbra, Croatian university.
 
+The CSVFormat function makes a CSV format (obviously..) string which will be used later to send to the server.
+Separator we're using for now is ';', might change in the future. The CSV format string holds information about temperature, humidity and sensor status.
+
 Error codes:
 400 - OK
 401 - Collected data is wrong

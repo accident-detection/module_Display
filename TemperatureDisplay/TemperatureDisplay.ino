@@ -17,8 +17,11 @@ void setup() {
 void loop() {
   int check = DHT.read11(DHT11_PIN);
   int statusSensor;
+  String CSV;
   
-  statusSensor = CheckSensorStatus(check);
+  statusSensor = CheckSensorStatus(check);  // Dohvaća status senzora
+  
+  CSV = CSVFormat(statusSensor);  // Pravi CSV format koji će se kasnije slati na server
   
   lcd.setCursor(13, 0);  // Ispis temperature
   lcd.print(DHT.temperature, 1);
@@ -26,7 +29,7 @@ void loop() {
   lcd.setCursor(13, 1);  // Ispis vlažnosti
   lcd.print(DHT.humidity, 1);
   lcd.print(" %");
-  lcd.setCursor(15, 3);  // Ispis error koda na lcd
+  lcd.setCursor(15, 3);  // Ispis error koda
   lcd.print(statusSensor);
 
   delay(1000);
@@ -63,5 +66,11 @@ int CheckSensorStatus (int check) {
         lcd.setCursor(0, 3);
         lcd.print("Unknown error"); 
 	return 410;
-  } 
+  }
 }
+
+String CSVFormat (int statusSensor) {
+    String toReturn;
+    toReturn = toReturn + "Temperatura" + ";" + DHT.temperature + ";" + "Vlaznost" + DHT.humidity + ";" + "Status" + statusSensor;
+    return toReturn;
+  }
