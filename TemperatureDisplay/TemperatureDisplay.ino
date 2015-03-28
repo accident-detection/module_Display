@@ -71,7 +71,7 @@ String CSVFormat (int statusSensor) {
     return toReturn;
   }
   
-  void SetupLCDDIsplay () {
+  void SetupLCDDisplay () {
     lcd.begin(20, 4);
     lcd.print("Temperatura: ");
     lcd.setCursor(0, 1);
