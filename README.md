@@ -5,11 +5,13 @@ The explanations inside the code are made in Croatian, because the project is ma
 The CSVFormat function makes a CSV format (obviously..) string which will be used later to send to the server.
 Separator we're using for now is ';', might change in the future. The CSV format string holds information about temperature, humidity and sensor status.
 
+We have seperated all of our initial setups into seperate functions so when we connect all of our modules that we have easier time debugging.
+
 Error codes:
 400 - OK
 401 - Collected data is wrong
 402 - Unable to make communication with the sensors (time-out error)
 403 - Data pin isn't connected correctly
-404 - Data pin connected to GND or low very low voltage
+404 - Data pin connected to GND or very low voltage
 405 - Data pin connected to high voltage (+3.3V or greater)
 410 - Unknown error

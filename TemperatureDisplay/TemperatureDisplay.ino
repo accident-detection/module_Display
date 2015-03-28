@@ -7,11 +7,7 @@ dht DHT;
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 
 void setup() {
-  lcd.begin(20, 4);
-  
-  lcd.print("Temperatura: ");
-  lcd.setCursor(0, 1);
-  lcd.print("Vlaznost: ");  
+  SetupLCDDisplay();  
 }
 
 void loop() {
@@ -73,4 +69,11 @@ String CSVFormat (int statusSensor) {
     String toReturn;
     toReturn = toReturn + "Temperatura" + ";" + DHT.temperature + ";" + "Vlaznost" + DHT.humidity + ";" + "Status" + statusSensor;
     return toReturn;
+  }
+  
+  void SetupLCDDIsplay () {
+    lcd.begin(20, 4);
+    lcd.print("Temperatura: ");
+    lcd.setCursor(0, 1);
+    lcd.print("Vlaznost: ");
   }
